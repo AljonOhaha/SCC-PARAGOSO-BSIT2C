@@ -6,8 +6,8 @@
 
         public static void main(String[] args) {
           
-        Netpay np = new Netpay();
-        np.Getpay();
+        //Netpay np = new Netpay();
+        //np.Getpay();
         
 
                     

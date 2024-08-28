@@ -11,7 +11,9 @@ public class Netpay {
 
             System.out.print("Enter your name: ");
             String name = gwapo.nextLine();
-            System.out.print("Enter Your Age: ");
+         //   System.out.print("Enter Your Age: "); 
+           
+          
             int age = gwapo.nextInt();
             System.out.print("Enter Rate per Hour: ");
             int rph = gwapo.nextInt();
