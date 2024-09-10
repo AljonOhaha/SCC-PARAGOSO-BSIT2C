@@ -10,10 +10,8 @@ import java.util.Scanner;
 
 public class Salary {
     
-
-
-
-    public void getSalary(){
+     public void getSalary(){
+    
         Scanner sc = new Scanner(System.in);
         Salaries[] sr = new Salaries[100];
         
@@ -43,16 +41,17 @@ public class Salary {
         double Tdeduction = 0;
         double Tnetpay = 0;
         
-        System.out.println("\nEMP ID     Name       Rate       Hours       Gross   Deductions   Netpay");
+        System.out.println("\nEMP ID     Name       Rate       Hours      Gross      Deductions Netpay");
         for(int i = 0; i < em; i++){
             
-            //Tsalary += sr[i].gross;
-           // Tdeduction += sr[i].deduct;
-           // Tnetpay += sr[i].netpay;
+            Tsalary += sr[i].gross;
+            Tdeduction += sr[i].deduct;
+            Tnetpay += sr[i].netpay;
             
             sr[i].getSalary();
         }
-        System.out.println("\nTotal salary for request: "+Tsalary);
+        System.out.println("-------------------------------------");
+        System.out.println("Total salary for request: "+Tsalary);
         System.out.println("Total deductions: "+Tdeduction);
         System.out.println("Total salary to release: "+Tnetpay);
     }
