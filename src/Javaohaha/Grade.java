@@ -3,58 +3,101 @@ package Javaohaha;
 
 import java.util.Scanner;
 
-public class Grade {
-    public void getGrades(){
+public class Grade {public void editGrades(Grades[] grs, int size, int id){
         Scanner sc = new Scanner(System.in);
-        Grades[] grs = new Grades[100];
-        
-        System.out.println("Running grade program: \n");
-        System.out.print("Enter no. of students: ");
-        int snum = sc.nextInt();
-        
-        for(int i = 0; i < snum; i++){
-            System.out.println("Enter details of student "+(i+1));
-            System.out.print("ID: ");
-            int id = sc.nextInt();
-            System.out.print("Name: ");
-            String name = sc.next();
-            System.out.print("Prelim: ");
-            double pre = sc.nextDouble();
-            System.out.print("Midterm: ");
-            double mid = sc.nextDouble();
-            System.out.print("Prefi: ");
-            double pref = sc.nextDouble();
-            System.out.print("Final: ");
-            double fin = sc.nextDouble();
-            
-            grs[i] = new Grades();
-            grs[i].addGrades(id, name, pre, mid, pref, fin);
-        }
-        
-        double TCA = 0;
-        int passed = 0;
-        int failed = 0;
-        
-        System.out.printf("\n%-5s %-10s %-5s %-5s %-5s %-5s %-5s %-5s\n", "ID", "Student", "Pre", "Mid", "Prefi", "Final", "Average", "Remarks");
-        
-        for(int i = 0; i < snum; i++){
-            grs[i].average = (grs[i].p+grs[i].m+grs[i].pf+grs[i].f)/4;
-            TCA += grs[i].average;
-            grs[i].getGrades();
-            
-            if(grs[i].average > 3.0){
-                failed++;
-            } else{
-                passed++;
+        for(int i = 0; i < size; i++){
+            if(grs[i].s_id == id){
+                System.out.println("New Prelim Grade: ");
+                double pre = sc.nextDouble();
+                grs[i].p = pre;
+                System.out.println("New Midterm Grade: ");
+                double mid = sc.nextDouble();
+                grs[i].m = mid;
+                System.out.println("New Prefinal Grade: ");
+                double pref = sc.nextDouble();
+                grs[i].pf = pref;
+                System.out.println("New Prelim Grade: ");
+                double fin = sc.nextDouble();
+                grs[i].f = fin;
             }
         }
-        
-        System.out.println("\n--------------------------------------"
-                + "\nNo. of students: "+snum
-                + "\nTotal class average: "+TCA/snum
-                + "\nNo. of passed: "+passed
-                + "\nNo. of failed: "+failed);
     }
-}
+    public void getGrades(){
+ Scanner sc = new Scanner(System.in);
+        Grades[] gr = new Grades[100];
+
+        int nums = 0;
+        String op;
+
+        do{
+
+        System.out.println("Welcome to Grading App");
+        System.out.println("-------------------------------------");
+        System.out.println("1. ADD");
+        System.out.println("2. VIEW");
+        System.out.println("3. UPDATE");
+        System.out.println("4. DELETE");
+        System.out.println("5. EXIT");
+        System.out.println("-------------------------------------");
+
+        System.out.print("Enter Action: ");
+        int option = sc.nextInt();
+
+        while(option > 5){
+            System.out.print("Invalid Action. Try Again: ");
+            option = sc.nextInt();
+        }
+
+        switch(option){
+
+            case 1:
+                System.out.print("Enter no. of Students: ");
+                nums = sc.nextInt();
+
+                    for(int i=0; i < nums; i++){
+                        System.out.println("Enter details of student "+(i+1)+":");
+                        System.out.print("ID: ");
+                        int id = sc.nextInt();
+                        System.out.print("Name: ");
+                        String name = sc.next();
+                        System.out.print("Prelim: ");
+                        double pr = sc.nextDouble();
+                        System.out.print("Midterm: ");
+                        double md = sc.nextDouble();
+                        System.out.print("Prefinal: ");
+                        double pf = sc.nextDouble();
+                        System.out.print("Final: ");
+                        double fn = sc.nextDouble();
+                        gr[i] = new Grades();
+                        gr[i].addGrades(id, name, pr, md, pf, fn);
+                    }
+            break;
+            case 2:
+                for(int i=0; i < nums; i++){
+                    gr[i].viewGrades();
+                }
+            break;
+            case 3:
+                System.out.println("Enter the ID to update: ");
+                int ids = sc.nextInt();
+                System.out.println(""+ids);
+                editGrades(gr, nums, ids);
+            break;
+
+        }
+
+            System.out.println("Do you want to continue?(Y/N): ");
+            op=sc.next();
+        }while(op.equals("Y")|| op.equals("y"));
+
+    }
+
+ 
+    }
+
     
+
+
+
+
 
