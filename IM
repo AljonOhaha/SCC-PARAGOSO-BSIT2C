@@ -1,0 +1,56 @@
+<?php
+
+namespace Aljon\Dbmodel\Models;
+
+use Aljon\Dbmodel\Includes\Database;
+
+class Todo extends Database {
+    private $db;
+
+    public function __construct() {
+        parent::__construct(); // Call the parent constructor to establish the connection
+        $this->db = $this->getConnection(); // Get the connection instance
+    }
+
+    public function getTodos() {
+        $sql = "SELECT * FROM todo";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function getTodo($id) {
+        $sql = "SELECT * FROM todo WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return $stmt->fetch(\PDO::FETCH_ASSOC);
+    }
+
+    public function createTodo($data) {
+        $sql = "INSERT INTO todo (title, status) VALUES (:title, :status)";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'title' => $data['title'], 
+            'status' => $data['status'] ?? 'pending'
+        ]);
+        return $this->db->lastInsertId();
+    }
+
+    public function updateTodo($data) {
+        $sql = "UPDATE todo SET title = :title, status = :status WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            'id' => $data['id'],
+            'title' => $data['title'],   
+            'status' => $data['status']
+        ]);
+        return "Task UPDATED successfully";
+    }
+
+    public function deleteTodo($id) {
+        $sql = "DELETE FROM todo WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute(['id' => $id]);
+        return "Task DELETED successfully";
+    }
+}
