@@ -1,0 +1,46 @@
+<?php
+
+require_once 'vendor/autoload.php';
+
+use Aljon\Dbmodel\Models\Todo;
+
+// Usage example
+$todo = new Todo();
+
+// Check if the form is submitted to create a new task
+if(isset($_POST['submit'])) {
+    $todo->createTodo([
+        'title' => $_POST['title'],
+        'status' => $_POST['status'] ?? 'pending'
+    ]);
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task List</title>
+</head>
+<body>
+    <h1>My To-Do List</h1>
+    <form method="POST" action="index.php">
+        <input type="text" name="title" placeholder="Task" required>
+        <select name="status">
+            <option value="pending">Pending</option>
+            <option value="completed">Completed</option>
+        </select>
+        <input type="submit" name="submit" value="Add Task">
+    </form>
+    
+    <h2>Task List</h2>
+    <ul>
+        <?php
+            $tasks = $todo->getTodo();
+            foreach ($tasks as $task) {
+                echo '<li>' . htmlspecialchars($task['title']) . ' - ' . htmlspecialchars($task['status']) . '</li>';
+            }
+        ?>
+    </ul>
+</body>
+</html>
